@@ -1,11 +1,10 @@
 @echo off
-chcp 65001 >nul
 setlocal enabledelayedexpansion
+chcp 65001 >nul
 
 echo.
 echo ========================================================
 echo    Installing Dependencies
-echo    Please wait...
 echo ========================================================
 echo.
 
@@ -24,7 +23,7 @@ echo.
 
 REM Upgrade pip
 echo Upgrading pip...
-python -m pip install --upgrade pip
+python -m pip install --upgrade pip >nul 2>&1
 
 echo.
 echo Installing required packages...
@@ -43,11 +42,7 @@ if errorlevel 1 (
 
 echo.
 echo ========================================================
-echo OK - All dependencies installed successfully!
+echo OK - All dependencies installed!
 echo ========================================================
-echo.
-echo Next steps:
-echo 1. Open config.yaml and replace 'YourUsername' with your Windows username
-echo 2. Double-click run.bat to start Auto Helper
 echo.
 pause
