@@ -1,0 +1,100 @@
+# 自动化任务配置文件
+# 在这里配置您想要自动执行的任务
+
+# 全局设置
+global:
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  notification_enabled: true
+  backup_retention_days: 30
+
+# 任务列表
+tasks:
+  # 任务 1: 文件整理
+  - name: "整理下载文件夹"
+    type: "organize_files"
+    enabled: true
+    schedule: "08:00"  # 每天早上8点执行
+    source: "C:/Users/YourUsername/Downloads"  # 修改为您的用户名
+    organize_by: "extension"  # 按文件类型分类
+    rules:
+      - pattern: "*.pdf|*.doc|*.docx"
+        folder: "Documents"
+      - pattern: "*.jpg|*.png|*.gif"
+        folder: "Images"
+      - pattern: "*.mp4|*.mkv|*.avi"
+        folder: "Videos"
+      - pattern: "*.zip|*.rar|*.7z"
+        folder: "Archives"
+
+  # 任务 2: 自动备份
+  - name: "备份重要文件"
+    type: "backup"
+    enabled: true
+    schedule: "22:00"  # 每天晚上10点执行
+    source: "C:/Users/YourUsername/Documents"  # 修改为您的用户名
+    destination: "D:/Backups/Documents"
+    compress: true  # 压缩为 zip 文件
+    skip_patterns:
+      - "*.tmp"
+      - "~*"
+      - ".git"
+
+  # 任务 3: 系统监控
+  - name: "系统性能监控"
+    type: "monitor"
+    enabled: true
+    check_interval: 300  # 每5分钟检查一次（秒）
+    alert_cpu: 80        # CPU使用率超过80%时告警
+    alert_memory: 85     # 内存使用率超过85%时告警
+    alert_disk: 90       # 磁盘使用率超过90%时告警
+    log_stats: true      # 记录统计信息
+
+  # 任务 4: 定时执行程序
+  - name: "定时运行脚本"
+    type: "execute_command"
+    enabled: false  # 改为 true 启用
+    schedule: "10:00"  # 每天早上10点执行
+    command: "echo Hello from Auto Helper"  # 要执行的命令
+
+  # 任务 5: 清理临时文件
+  - name: "清理临时文件"
+    type: "cleanup"
+    enabled: true
+    schedule: "02:00"  # 每天凌晨2点执行
+    target_folders:
+      - "C:/Windows/Temp"
+      - "C:/Users/YourUsername/AppData/Local/Temp"  # 修改为您的用户名
+    file_age_days: 7  # 删除7天以上的文件
+    dry_run: false  # 改为 true 进行模拟运行（不实际删除）
+
+# 更多任务示例（注释掉，需要时取消注释）
+
+# # 任务 6: 定时检查磁盘空间
+# - name: "检查磁盘空间"
+#   type: "disk_check"
+#   enabled: false
+#   schedule: "09:00"
+#   drives: ["C:", "D:"]
+#   alert_threshold: 10  # 可用空间小于10GB时告警
+
+# # 任务 7: 自动同步文件
+# - name: "同步文件夹"
+#   type: "sync"
+#   enabled: false
+#   schedule: "12:00"
+#   source: "C:/Users/YourUsername/Projects"
+#   destination: "D:/Backup/Projects"
+
+# 通知设置
+notifications:
+  enabled: true
+  on_success: true   # 成功时通知
+  on_error: true     # 失败时通知
+  sound_enabled: true
+
+# 日志设置
+logging:
+  enabled: true
+  log_file: "logs/main.log"
+  max_file_size_mb: 10
+  backup_count: 5

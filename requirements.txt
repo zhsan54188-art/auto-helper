@@ -1,0 +1,6 @@
+PyYAML==6.0
+psutil==5.9.4
+schedule==1.1.10
+pywin32==305
+win10toast==0.9
+python-dateutil==2.8.2
