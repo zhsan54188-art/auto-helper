@@ -1,52 +1,53 @@
 @echo off
 chcp 65001 >nul
+setlocal enabledelayedexpansion
+
 echo.
-echo ════════════════════════════════════════════════════
-echo    📦 安装依赖
+echo ========================================================
 echo    Installing Dependencies
-echo ════════════════════════════════════════════════════
+echo    Please wait...
+echo ========================================================
 echo.
 
-REM 检查 Python 是否已安装
+REM Check if Python is installed
 python --version >nul 2>&1
 if errorlevel 1 (
-    echo ❌ 错误: 未检测到 Python
-    echo 请先安装 Python: https://www.python.org/downloads/
+    echo Error: Python not detected
+    echo Please install Python: https://www.python.org/downloads/
     echo.
     pause
     exit /b 1
 )
 
-echo ✅ Python 已检测到
+echo OK - Python detected
 echo.
 
-REM 升级 pip
-echo 🔄 升级 pip...
+REM Upgrade pip
+echo Upgrading pip...
 python -m pip install --upgrade pip
 
 echo.
-echo 📥 正在安装依赖包...
+echo Installing required packages...
 echo.
 
-REM 安装依赖
+REM Install dependencies
 python -m pip install -r requirements.txt
 
 if errorlevel 1 (
     echo.
-    echo ❌ 安装失败！
+    echo Installation failed!
     echo.
     pause
     exit /b 1
 )
 
 echo.
-echo ════════════════════════════════════════════════════
-echo ✅ 所有依赖安装完成！
-echo ════════════════════════════════════════════════════
+echo ========================================================
+echo OK - All dependencies installed successfully!
+echo ========================================================
 echo.
-echo 下一步:
-echo 1. 编辑 config.yaml 文件配置您的任务
-echo 2. 修改配置文件中的用户名和路径
-echo 3. 双击 run.bat 启动自动化助手
+echo Next steps:
+echo 1. Open config.yaml and replace 'YourUsername' with your Windows username
+echo 2. Double-click run.bat to start Auto Helper
 echo.
 pause
